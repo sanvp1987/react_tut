@@ -15,21 +15,22 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const EntryForm = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  //   const [name, setName] = useState("");
+  //   const [email, setEmail] = useState("");
+  const [form, setForm] = useState({name: "",email:""});
   const [data, setData] = useState([]);
 
   const addData = () => {
-    setData([...data, { name, email }]);
-    setName("");
-    setEmail("");
+    setData([...data, form]);
+    setForm({name: "",email:""})
+    
   };
 
-  const removeData=(index)=>{
+  const removeData = (index) => {
     let arr = data;
-    arr.splice(index,1)
+    arr.splice(index, 1);
     setData([...arr]);
-  }
+  };
 
   return (
     // Form section
@@ -43,15 +44,15 @@ const EntryForm = () => {
       >
         <Stack spacing={2} direction="row">
           <TextField
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
             id="name"
             label="name"
             variant="outlined"
           />
           <TextField
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
             id="email"
             label="email"
             variant="outlined"
@@ -83,7 +84,10 @@ const EntryForm = () => {
                   </TableCell>
                   <TableCell align="right">{element.email}</TableCell>
                   <TableCell align="right">
-                    <IconButton onClick={()=>removeData(index)} aria-label="delete">
+                    <IconButton
+                      onClick={() => removeData(index)}
+                      aria-label="delete"
+                    >
                       <DeleteIcon />
                     </IconButton>
                   </TableCell>
